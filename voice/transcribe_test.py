@@ -1,6 +1,7 @@
 import json
 import wave
 from pathlib import Path
+from tts import speak
 
 from vosk import Model, KaldiRecognizer
 
@@ -37,6 +38,13 @@ def main():
 
     result = json.loads(recognizer.FinalResult())
     print("Transcription:", result.get("text", ""))
+
+    text = result.get("text", "")
+    
+    if text:
+        speak(f"You said: {text}")
+    else:
+        speak("I did not catch that.")
 
 if __name__ == "__main__":
     main()
